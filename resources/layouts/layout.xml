@@ -1,0 +1,27 @@
+<layout id="WatchFace">
+	<drawable class="Background" />
+	<label id="HourLabel" x="45%" y="6%"
+		font="Graphics.FONT_NUMBER_THAI_HOT"
+		justification="Graphics.TEXT_JUSTIFY_CENTER"
+		color="Graphics.COLOR_WHITE" />
+	<label id="MinuteLabel" x="55%" y="42%"
+		font="Graphics.FONT_NUMBER_THAI_HOT"
+		justification="Graphics.TEXT_JUSTIFY_CENTER"
+		color="Graphics.COLOR_BLUE" />
+	<label id="DateLabel" x="70%" y="20%"
+		font="Graphics.FONT_XTINY"
+		justification="Graphics.TEXT_JUSTIFY_LEFT"
+		color="Graphics.COLOR_WHITE" />
+	<label id="StepLabel" x="70%" y="26%"
+		font="Graphics.FONT_XTINY"
+		justification="Graphics.TEXT_JUSTIFY_LEFT"
+		color="Graphics.COLOR_WHITE" />
+	<label id="BatteryLabel" x="20%" y="50%"
+		font="Graphics.FONT_XTINY"
+		justification="Graphics.TEXT_JUSTIFY_RIGHT"
+		color="Graphics.COLOR_WHITE" />
+	<label id="HRLabel" x="20%" y="56%" 
+		font="Graphics.FONT_XTINY"
+		justification="Graphics.TEXT_JUSTIFY_RIGHT"
+		color="Graphics.COLOR_WHITE" />
+</layout>
