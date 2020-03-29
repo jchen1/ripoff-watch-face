@@ -15,8 +15,8 @@
 		font="Graphics.FONT_NUMBER_THAI_HOT"
 		justification="Graphics.TEXT_JUSTIFY_CENTER"
 		color="Graphics.COLOR_BLUE" />
-		
-	<!-- top right -->
+<!-- 		
+	top right
 	<label id="DateLabel" x="68%" y="20%"
 		font="Graphics.FONT_XTINY"
 		justification="Graphics.TEXT_JUSTIFY_LEFT"
@@ -26,7 +26,7 @@
 		justification="Graphics.TEXT_JUSTIFY_LEFT"
 		color="Graphics.COLOR_WHITE" />
 		
-	<!-- bottom left -->
+	bottom left
 	<label id="BatteryLabel" x="32%" y="70%"
 		font="Graphics.FONT_XTINY"
 		justification="Graphics.TEXT_JUSTIFY_RIGHT"
@@ -34,5 +34,26 @@
 	<label id="HRLabel" x="32%" y="76%" 
 		font="Graphics.FONT_XTINY"
 		justification="Graphics.TEXT_JUSTIFY_RIGHT"
+		color="Graphics.COLOR_WHITE" /> -->
+		
+				
+	<!-- top -->
+	<label id="DateLabel" x="40%" y="20"
+		font="Graphics.FONT_XTINY"
+		justification="Graphics.TEXT_JUSTIFY_CENTER"
+		color="Graphics.COLOR_WHITE" />
+	<label id="StepLabel" x="60%" y="20"
+		font="Graphics.FONT_XTINY"
+		justification="Graphics.TEXT_JUSTIFY_CENTER"
+		color="Graphics.COLOR_WHITE" />
+		
+	<!-- bottom -->
+	<label id="BatteryLabel" x="40%" y="205"
+		font="Graphics.FONT_XTINY"
+		justification="Graphics.TEXT_JUSTIFY_CENTER"
+		color="Graphics.COLOR_WHITE" />
+	<label id="HRLabel" x="60%" y="205" 
+		font="Graphics.FONT_XTINY"
+		justification="Graphics.TEXT_JUSTIFY_CENTER"
 		color="Graphics.COLOR_WHITE" />
 </layout>

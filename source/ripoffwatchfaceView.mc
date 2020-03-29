@@ -58,8 +58,18 @@ class ripoffwatchfaceView extends WatchUi.WatchFace {
     }
     
     hidden function drawLines(dc) {
-//    	dc.setColor(0xffffff, 0x000000);
-//    	dc.setPenWidth(1);
+    	dc.setColor(0xffffff, 0x000000);
+    	dc.setPenWidth(2);
+    	
+    	dc.drawLine(0, 43, 240, 43);
+    	dc.drawLine(0, 203, 240, 203);
+    	
+    	// 180 +- 35
+    	dc.setPenWidth(4);
+    	dc.drawArc(120, 120, 116, Graphics.ARC_CLOCKWISE, 215, 145);
+    	
+    	// 0 +- 35
+    	dc.drawArc(120, 120, 116, Graphics.ARC_COUNTER_CLOCKWISE, 325, 35);
 //    	
 ////    	dc.drawLine(55, 40, 55, 200);
 ////    	dc.drawLine(190, 40, 190, 200);
