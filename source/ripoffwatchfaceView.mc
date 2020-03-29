@@ -58,17 +58,25 @@ class ripoffwatchfaceView extends WatchUi.WatchFace {
     }
     
     hidden function drawLines(dc) {
-    	dc.setColor(0xffffff, 0x000000);
-    	dc.setPenWidth(1);
-    	dc.drawLine(55, 40, 55, 200);
-    	dc.drawLine(190, 40, 190, 200);
-    	
-    	dc.setColor(0x999999, 0x000000);
-    	dc.drawLine(120, 0, 120, 240);
-    	dc.drawLine(0, 120, 240, 120);
+//    	dc.setColor(0xffffff, 0x000000);
+//    	dc.setPenWidth(1);
+//    	
+////    	dc.drawLine(55, 40, 55, 200);
+////    	dc.drawLine(190, 40, 190, 200);
+//    	
+//    	dc.setColor(0x999999, 0x000000);
+//    	dc.drawLine(120, 0, 120, 240);
+//    	dc.drawLine(0, 120, 240, 120);
     }
     
     // -------------------------------------------
+    
+    
+    // height: 69px
+    // total height: 240px
+    // padding: 10px
+    // top: ((240 - (69*2))/2) - 5
+    // bottom: ((240 - (69*2))/2) + 69 + 5
     
     hidden function setClock() {
         // Get the current time and format it correctly
@@ -90,6 +98,7 @@ class ripoffwatchfaceView extends WatchUi.WatchFace {
         var hourView = View.findDrawableById("HourLabel");
         hourView.setFont(font);
         hourView.setText(hourString);
+		
         
         var minuteView = View.findDrawableById("MinuteLabel");
         minuteView.setFont(font);
