@@ -9,17 +9,21 @@ using Toybox.Application;
 var font;
 var symbols;
 
+var primary;
+var secondary;
+var background;
+
 class ripoffwatchfaceView extends WatchUi.WatchFace {
 
     function initialize() {
         WatchFace.initialize();
-        font = WatchUi.loadResource(Rez.Fonts.id_futura);
-        symbols = WatchUi.loadResource(Rez.Fonts.id_symbols);
     }
 
     // Load your resources here
     function onLayout(dc) {
         setLayout(Rez.Layouts.WatchFace(dc));
+        font = WatchUi.loadResource(Rez.Fonts.id_futura);
+        symbols = WatchUi.loadResource(Rez.Fonts.id_symbols);
     }
 
     // Called when this View is brought to the foreground. Restore
@@ -30,7 +34,10 @@ class ripoffwatchfaceView extends WatchUi.WatchFace {
 
     // Update the view
     function onUpdate(dc) {
-    	setClock();
+        primary = Application.getApp().getProperty("PrimaryColor");
+        secondary = Application.getApp().getProperty("SecondaryColor");
+        background = Application.getApp().getProperty("BackgroundColor");
+        
     	setDate();
     	setSteps();
     	setBattery();
@@ -40,7 +47,7 @@ class ripoffwatchfaceView extends WatchUi.WatchFace {
         View.onUpdate(dc);
         
         // all dc calls must happen after layout redraw
-        
+    	setClock(dc);
     	drawLines(dc);
         
     }
@@ -60,14 +67,15 @@ class ripoffwatchfaceView extends WatchUi.WatchFace {
     }
     
     hidden function drawLines(dc) {
-    	dc.setColor(Application.getApp().getProperty("ForegroundColor"), Graphics.COLOR_BLACK);
-    	dc.setPenWidth(3);
+    	dc.setColor(primary, Graphics.COLOR_TRANSPARENT);
+    	
     	
 // 		debugging
+//		dc.setPenWidth(1);
 //	    dc.drawLine(0, 120, 240, 120);
 //	    dc.drawLine(120, 0, 120, 240);
 
-	    	
+	    dc.setPenWidth(3);	
     	dc.drawLine(0, 43, 240, 43);
     	dc.drawLine(0, 203, 240, 203);
     	
@@ -79,27 +87,54 @@ class ripoffwatchfaceView extends WatchUi.WatchFace {
     	
     	// 0 +- 30
     	// right arc
-    	dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_BLACK);
+    	var arcBackgroundColor = background == Graphics.COLOR_DK_GRAY ? Graphics.COLOR_BLACK : Graphics.COLOR_DK_GRAY;
+    	dc.setColor(arcBackgroundColor, Graphics.COLOR_TRANSPARENT);
     	dc.drawArc(120, 120, 116, Graphics.ARC_COUNTER_CLOCKWISE, 330, 30);
     	
     	var battery = System.getSystemStats().battery;
     	var top = (360 + (battery / 100 * 60) - 30).toLong() % 360;
     	
-    	dc.setColor(Application.getApp().getProperty("ForegroundColor"), Graphics.COLOR_BLACK);
+    	dc.setColor(primary, Graphics.COLOR_BLACK);
     	dc.drawArc(120, 120, 116, Graphics.ARC_COUNTER_CLOCKWISE, 330, top);
     }
     
-    // -------------------------------------------
+    hidden function charOffset(char) {
+    	switch (char) {
+    		case "0": return 50;
+    		case "1": return 40;
+    		case "2": return 51;
+    		case "3": return 51;
+    		case "4": return 51;
+    		case "5": return 50;
+    		case "6": return 53;
+    		case "7": return 57;
+    		case "8": return 55;
+    		case "9": return 56;
+    		default: return -1;
+    	}
+    	
+    }
     
+    hidden function drawClockSegment(dc, color, segment, x, y) {
+    	var c1 = segment.substring(0, 1);
+    	var c2 = segment.substring(1, 2);
+    	
+    	// center align
+//    	var width = charOffset(c1) + charOffset(c2);
+//
+//    	var c1x = x - (width / 2);
+//    	var c2x = x;
+    	
+    	// left align
+    	var c1x = x;
+    	var c2x = x + charOffset(c1);
+    	
+    	dc.setColor(color, Graphics.COLOR_TRANSPARENT);
+    	dc.drawText(c2x, y, font, c2, Graphics.TEXT_JUSTIFY_LEFT);
+    	dc.drawText(c1x, y, font, c1, Graphics.TEXT_JUSTIFY_LEFT);
+    }
     
-    // height: 69px
-    // total height: 240px
-    // padding: 10px
-    // top: ((240 - (69*2))/2) - 5
-    // bottom: ((240 - (69*2))/2) + 69 + 5
-    
-    hidden function setClock() {
-        // Get the current time and format it correctly
+    hidden function setClock(dc) {
         var clockTime = System.getClockTime();
         var hours = clockTime.hour;
         if (!System.getDeviceSettings().is24Hour) {
@@ -113,17 +148,8 @@ class ripoffwatchfaceView extends WatchUi.WatchFace {
         }
         var hourString = hours.format("%02d");
         var minuteString = clockTime.min.format("%02d");
-
-        // Update the view
-        var hourView = View.findDrawableById("HourLabel");
-        hourView.setFont(font);
-        hourView.setText(hourString);
-		
-        
-        var minuteView = View.findDrawableById("MinuteLabel");
-        minuteView.setFont(font);
-        minuteView.setColor(Application.getApp().getProperty("ForegroundColor"));
-        minuteView.setText(minuteString);
+       	drawClockSegment(dc, secondary, hourString, 50, 28);
+       	drawClockSegment(dc, primary, minuteString, 80, 102);  
     }
     
     hidden function setDate() {
@@ -131,21 +157,28 @@ class ripoffwatchfaceView extends WatchUi.WatchFace {
     	var dateString = Lang.format("$1$ $2$", [date.day_of_week.toUpper(), date.day]);
     	
     	var dateDisplay = View.findDrawableById("DateLabel");      
+    	dateDisplay.setColor(secondary);
 		dateDisplay.setText(dateString);	
     }
     
     hidden function setSteps() {
     	var stepCount = ActivityMonitor.getInfo().steps.toString();
-		var stepCountDisplay = View.findDrawableById("StepLabel");      
+		var stepCountDisplay = View.findDrawableById("StepLabel");
+		stepCountDisplay.setColor(secondary);
+		
 		stepCountDisplay.setText(stepCount);
+		
+		View.findDrawableById("StepIcon").setColor(secondary);
     }
     
     hidden function setBattery() {
 	    var battery = System.getSystemStats().battery;				
-		var batteryDisplay = View.findDrawableById("BatteryLabel");      
+		var batteryDisplay = View.findDrawableById("BatteryLabel");
+		batteryDisplay.setColor(secondary);      
 		batteryDisplay.setText(battery.format("%d"));
 		
 		var batteryIcon = View.findDrawableById("BatteryIcon");
+		batteryIcon.setColor(secondary);
 		if (System.getSystemStats().charging) {
 			batteryIcon.setText("c");
 		}
@@ -179,7 +212,10 @@ class ripoffwatchfaceView extends WatchUi.WatchFace {
     	}
     	
 		var heartrateDisplay = View.findDrawableById("HRLabel"); 
+		heartrateDisplay.setColor(secondary);
 		heartrateDisplay.setText(hr);
+		
+		View.findDrawableById("HRIcon").setColor(secondary);
     }
 
 }

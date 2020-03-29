@@ -3,7 +3,9 @@
     <string id="AppName">ripoff-watch-face</string>
 
     <string id="BackgroundColorTitle">Background Color</string>
-    <string id="ForegroundColorTitle">Foreground Color</string>
+    <string id="PrimaryColorTitle">Primary Color</string>
+    <string id="SecondaryColorTitle">Secondary Color</string>
+    
     <string id="MilitaryFormatTitle">Military Format for 24 Hour Time</string>
 
     <string id="ColorBlack">Black</string>

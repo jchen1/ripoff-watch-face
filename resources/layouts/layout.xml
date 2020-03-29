@@ -7,14 +7,14 @@
     // top: ((240 - (69*2))/2) - 5
     // bottom: ((240 - (69*2))/2) + 69 + 5
      -->
-	<label id="HourLabel" x="47%" y="28"
+<!-- 	<label id="HourLabel" x="47%" y="28"
 		font="Graphics.FONT_NUMBER_THAI_HOT"
 		justification="Graphics.TEXT_JUSTIFY_CENTER"
 		color="Graphics.COLOR_WHITE" />
 	<label id="MinuteLabel" x="53%" y="102"
 		font="Graphics.FONT_NUMBER_THAI_HOT"
 		justification="Graphics.TEXT_JUSTIFY_CENTER"
-		color="Graphics.COLOR_BLUE" />
+		color="Graphics.COLOR_BLUE" /> -->
 		
 				
 	<!-- top -->
