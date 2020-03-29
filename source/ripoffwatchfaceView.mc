@@ -7,12 +7,14 @@ using Toybox.ActivityMonitor;
 using Toybox.Application;
 
 var font;
+var symbols;
 
 class ripoffwatchfaceView extends WatchUi.WatchFace {
 
     function initialize() {
         WatchFace.initialize();
         font = WatchUi.loadResource(Rez.Fonts.id_futura);
+        symbols = WatchUi.loadResource(Rez.Fonts.id_symbols);
     }
 
     // Load your resources here
@@ -58,9 +60,14 @@ class ripoffwatchfaceView extends WatchUi.WatchFace {
     }
     
     hidden function drawLines(dc) {
-    	dc.setColor(0xffffff, 0x000000);
-    	dc.setPenWidth(2);
+    	dc.setColor(Application.getApp().getProperty("ForegroundColor"), Graphics.COLOR_BLACK);
+    	dc.setPenWidth(3);
     	
+// 		debugging
+//	    dc.drawLine(0, 120, 240, 120);
+//	    dc.drawLine(120, 0, 120, 240);
+
+	    	
     	dc.drawLine(0, 43, 240, 43);
     	dc.drawLine(0, 203, 240, 203);
     	
@@ -78,15 +85,8 @@ class ripoffwatchfaceView extends WatchUi.WatchFace {
     	var battery = System.getSystemStats().battery;
     	var top = (360 + (battery / 100 * 60) - 30).toLong() % 360;
     	
-    	dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+    	dc.setColor(Application.getApp().getProperty("ForegroundColor"), Graphics.COLOR_BLACK);
     	dc.drawArc(120, 120, 116, Graphics.ARC_COUNTER_CLOCKWISE, 330, top);
-//    	
-////    	dc.drawLine(55, 40, 55, 200);
-////    	dc.drawLine(190, 40, 190, 200);
-//    	
-//    	dc.setColor(0x999999, 0x000000);
-//    	dc.drawLine(120, 0, 120, 240);
-//    	dc.drawLine(0, 120, 240, 120);
     }
     
     // -------------------------------------------
@@ -143,7 +143,23 @@ class ripoffwatchfaceView extends WatchUi.WatchFace {
     hidden function setBattery() {
 	    var battery = System.getSystemStats().battery;				
 		var batteryDisplay = View.findDrawableById("BatteryLabel");      
-		batteryDisplay.setText(battery.format("%d")+"%");
+		batteryDisplay.setText(battery.format("%d"));
+		
+		var batteryIcon = View.findDrawableById("BatteryIcon");
+		if (System.getSystemStats().charging) {
+			batteryIcon.setText("c");
+		}
+		else if (battery > 90) {
+			batteryIcon.setText("0");
+		} else if (battery > 75) {
+			batteryIcon.setText("1");
+		} else if (battery > 40) {
+			batteryIcon.setText("2");
+		} else if (battery > 20) {
+			batteryIcon.setText("3");
+		} else {
+			batteryIcon.setText("4");
+		}
     }
     
     hidden function setHR() {
@@ -162,10 +178,7 @@ class ripoffwatchfaceView extends WatchUi.WatchFace {
     		hr = "--";
     	}
     	
-		var heartrateDisplay = View.findDrawableById("HRLabel");
-		
-		// todo heart glyph
-		hr = "HR " + hr;  
+		var heartrateDisplay = View.findDrawableById("HRLabel"); 
 		heartrateDisplay.setText(hr);
     }
 

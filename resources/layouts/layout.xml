@@ -7,53 +7,37 @@
     // top: ((240 - (69*2))/2) - 5
     // bottom: ((240 - (69*2))/2) + 69 + 5
      -->
-	<label id="HourLabel" x="45%" y="46"
+	<label id="HourLabel" x="47%" y="28"
 		font="Graphics.FONT_NUMBER_THAI_HOT"
 		justification="Graphics.TEXT_JUSTIFY_CENTER"
 		color="Graphics.COLOR_WHITE" />
-	<label id="MinuteLabel" x="55%" y="125"
+	<label id="MinuteLabel" x="53%" y="102"
 		font="Graphics.FONT_NUMBER_THAI_HOT"
 		justification="Graphics.TEXT_JUSTIFY_CENTER"
 		color="Graphics.COLOR_BLUE" />
-<!-- 		
-	top right
-	<label id="DateLabel" x="68%" y="20%"
-		font="Graphics.FONT_XTINY"
-		justification="Graphics.TEXT_JUSTIFY_LEFT"
-		color="Graphics.COLOR_WHITE" />
-	<label id="StepLabel" x="68%" y="26%"
-		font="Graphics.FONT_XTINY"
-		justification="Graphics.TEXT_JUSTIFY_LEFT"
-		color="Graphics.COLOR_WHITE" />
-		
-	bottom left
-	<label id="BatteryLabel" x="32%" y="70%"
-		font="Graphics.FONT_XTINY"
-		justification="Graphics.TEXT_JUSTIFY_RIGHT"
-		color="Graphics.COLOR_WHITE" />
-	<label id="HRLabel" x="32%" y="76%" 
-		font="Graphics.FONT_XTINY"
-		justification="Graphics.TEXT_JUSTIFY_RIGHT"
-		color="Graphics.COLOR_WHITE" /> -->
 		
 				
 	<!-- top -->
-	<label id="DateLabel" x="40%" y="20"
+	<label id="DateLabel" x="25%" y="20"
 		font="Graphics.FONT_XTINY"
-		justification="Graphics.TEXT_JUSTIFY_CENTER"
+		justification="Graphics.TEXT_JUSTIFY_LEFT"
 		color="Graphics.COLOR_WHITE" />
-	<label id="StepLabel" x="60%" y="20"
+	<label id="StepIcon" x="75%" y="20" font="@Fonts.id_symbols" color="Graphics.COLOR_WHITE" text="s" justification="Graphics.TEXT_JUSTIFY_RIGHT"/>
+	<label id="StepLabel" x="68%" y="20"
 		font="Graphics.FONT_XTINY"
-		justification="Graphics.TEXT_JUSTIFY_CENTER"
+		justification="Graphics.TEXT_JUSTIFY_RIGHT"
 		color="Graphics.COLOR_WHITE" />
 		
 	<!-- bottom -->
-	<label id="BatteryLabel" x="40%" y="205"
+	<label id="BatteryIcon" x="25%" y="205" font="@Fonts.id_symbols" color="Graphics.COLOR_WHITE"/>
+	<label id="BatteryLabel" x="32%" y="205"
 		font="Graphics.FONT_XTINY"
-		justification="Graphics.TEXT_JUSTIFY_CENTER"
+		justification="Graphics.TEXT_JUSTIFY_LEFT"
 		color="Graphics.COLOR_WHITE" />
-	<label id="HRLabel" x="60%" y="205" 
+		
+	<label id="HRIcon" x="75%" y="205" font="@Fonts.id_symbols" color="Graphics.COLOR_WHITE" text="h" justification="Graphics.TEXT_JUSTIFY_RIGHT"/>
+	<label id="HRLabel" x="68%" y="205" 
 		font="Graphics.FONT_XTINY"
-		justification="Graphics.TEXT_JUSTIFY_CENTER"
+		justification="Graphics.TEXT_JUSTIFY_RIGHT"
 		color="Graphics.COLOR_WHITE" />
 </layout>
