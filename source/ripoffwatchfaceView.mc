@@ -64,12 +64,22 @@ class ripoffwatchfaceView extends WatchUi.WatchFace {
     	dc.drawLine(0, 43, 240, 43);
     	dc.drawLine(0, 203, 240, 203);
     	
-    	// 180 +- 35
     	dc.setPenWidth(4);
-    	dc.drawArc(120, 120, 116, Graphics.ARC_CLOCKWISE, 215, 145);
     	
-    	// 0 +- 35
-    	dc.drawArc(120, 120, 116, Graphics.ARC_COUNTER_CLOCKWISE, 325, 35);
+    	// 180 +- 30    	
+    	// left arc
+//    	dc.drawArc(120, 120, 116, Graphics.ARC_CLOCKWISE, 210, 150);
+    	
+    	// 0 +- 30
+    	// right arc
+    	dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_BLACK);
+    	dc.drawArc(120, 120, 116, Graphics.ARC_COUNTER_CLOCKWISE, 330, 30);
+    	
+    	var battery = System.getSystemStats().battery;
+    	var top = (360 + (battery / 100 * 60) - 30).toLong() % 360;
+    	
+    	dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+    	dc.drawArc(120, 120, 116, Graphics.ARC_COUNTER_CLOCKWISE, 330, top);
 //    	
 ////    	dc.drawLine(55, 40, 55, 200);
 ////    	dc.drawLine(190, 40, 190, 200);
@@ -125,8 +135,7 @@ class ripoffwatchfaceView extends WatchUi.WatchFace {
     }
     
     hidden function setSteps() {
-//    	var stepCount = ActivityMonitor.getInfo().steps.toString();
-		var stepCount = "1234";
+    	var stepCount = ActivityMonitor.getInfo().steps.toString();
 		var stepCountDisplay = View.findDrawableById("StepLabel");      
 		stepCountDisplay.setText(stepCount);
     }
