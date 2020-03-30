@@ -100,7 +100,7 @@ class ripoffwatchfaceView extends WatchUi.WatchFace {
 
     hidden function charOffset(char) {
         switch (char) {
-            case "0": return 50;
+            case "0": return 45;
             case "1": return 40;
             case "2": return 51;
             case "3": return 51;
@@ -148,8 +148,8 @@ class ripoffwatchfaceView extends WatchUi.WatchFace {
         }
         var hourString = hours.format("%02d");
         var minuteString = clockTime.min.format("%02d");
-        drawClockSegment(dc, secondary, hourString, 50, 28);
-        drawClockSegment(dc, primary, minuteString, 80, 102);
+        drawClockSegment(dc, secondary, hourString, 55, 28);
+        drawClockSegment(dc, primary, minuteString, 75, 102);
     }
 
     hidden function setDate() {
@@ -198,7 +198,7 @@ class ripoffwatchfaceView extends WatchUi.WatchFace {
     hidden function setHR() {
         var hr = "";
         if(ActivityMonitor has :INVALID_HR_SAMPLE) {
-            var heartrateIterator = ActivityMonitor.getHeartRateHistory(null, false);
+            var heartrateIterator = ActivityMonitor.getHeartRateHistory(null, true);
             var currentHeartrate = heartrateIterator.next().heartRate;
 
             if(currentHeartrate == ActivityMonitor.INVALID_HR_SAMPLE) {
