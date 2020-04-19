@@ -79,28 +79,42 @@ class ripoffwatchfaceView extends WatchUi.WatchFace {
         dc.drawLine(0, 43, 240, 43);
         dc.drawLine(0, 203, 240, 203);
 
-        dc.setPenWidth(4);
+        dc.setPenWidth(5);
+        var arcBackgroundColor = background == Graphics.COLOR_DK_GRAY ? Graphics.COLOR_BLACK : Graphics.COLOR_DK_GRAY;
 
         // 180 +- 30
         // left arc
-//      dc.drawArc(120, 120, 116, Graphics.ARC_CLOCKWISE, 210, 150);
+        dc.setColor(arcBackgroundColor, Graphics.COLOR_TRANSPARENT);
+        dc.drawArc(120, 120, 116, Graphics.ARC_CLOCKWISE, 210, 150);
+
+        var pct = System.getSystemStats().battery;
+
+        var top = 210 - (pct / 100 * 60);
+        if (pct > 0.0) {
+            dc.setColor(primary, Graphics.COLOR_BLACK);
+            dc.drawArc(120, 120, 116, Graphics.ARC_CLOCKWISE, 210, top);
+        }
 
         // 0 +- 30
         // right arc
-        var arcBackgroundColor = background == Graphics.COLOR_DK_GRAY ? Graphics.COLOR_BLACK : Graphics.COLOR_DK_GRAY;
         dc.setColor(arcBackgroundColor, Graphics.COLOR_TRANSPARENT);
         dc.drawArc(120, 120, 116, Graphics.ARC_COUNTER_CLOCKWISE, 330, 30);
 
-        var battery = System.getSystemStats().battery;
-        var top = (360 + (battery / 100 * 60) - 30).toLong() % 360;
+        var stepGoal = ActivityMonitor.getInfo().stepGoal;
+        var steps = ActivityMonitor.getInfo().steps;
+        pct = 100.0 * steps / stepGoal;
 
-        dc.setColor(primary, Graphics.COLOR_BLACK);
-        dc.drawArc(120, 120, 116, Graphics.ARC_COUNTER_CLOCKWISE, 330, top);
+        top = (360 + (pct / 100 * 60) - 30).toLong() % 360;
+
+        if (pct > 0.0) {
+            dc.setColor(primary, Graphics.COLOR_BLACK);
+            dc.drawArc(120, 120, 116, Graphics.ARC_COUNTER_CLOCKWISE, 330, top);
+        }
     }
 
     hidden function charOffset(char) {
         switch (char) {
-            case "0": return 45;
+            case "0": return 50;
             case "1": return 40;
             case "2": return 51;
             case "3": return 51;
