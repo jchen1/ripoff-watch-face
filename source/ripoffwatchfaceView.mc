@@ -90,7 +90,7 @@ class ripoffwatchfaceView extends WatchUi.WatchFace {
         var pct = System.getSystemStats().battery;
 
         var top = 210 - (pct / 100 * 60);
-        if (pct > 0.0) {
+        if (top.toLong() != 210) {
             dc.setColor(primary, Graphics.COLOR_BLACK);
             dc.drawArc(120, 120, 116, Graphics.ARC_CLOCKWISE, 210, top);
         }
@@ -103,10 +103,13 @@ class ripoffwatchfaceView extends WatchUi.WatchFace {
         var stepGoal = ActivityMonitor.getInfo().stepGoal;
         var steps = ActivityMonitor.getInfo().steps;
         pct = 100.0 * steps / stepGoal;
+        if (pct > 100) {
+            pct = 100.0;
+        }
 
         top = (360 + (pct / 100 * 60) - 30).toLong() % 360;
 
-        if (pct > 0.0) {
+        if (top != 330) {
             dc.setColor(primary, Graphics.COLOR_BLACK);
             dc.drawArc(120, 120, 116, Graphics.ARC_COUNTER_CLOCKWISE, 330, top);
         }
